@@ -46,34 +46,34 @@
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:src="@drawable/as_coeur"/>
+            android:src="@drawable/c0_0"/>
 
         <ImageView
             android:id="@+id/imageViewCardPlayer2"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:src="@drawable/as_coeur" />
+            android:src="@drawable/c0_0" />
 
         <ImageView
             android:id="@+id/imageViewCardPlayer3"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:src="@drawable/as_coeur"/>
+            android:src="@drawable/c0_0"/>
 
         <ImageView
             android:id="@+id/imageViewCardPlayer4"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:src="@drawable/as_coeur" />
+            android:src="@drawable/c0_0" />
 
         <ImageView
             android:id="@+id/imageViewCardPlayer5"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:src="@drawable/as_coeur" />
+            android:src="@drawable/c0_0" />
     </LinearLayout>
 </LinearLayout>
