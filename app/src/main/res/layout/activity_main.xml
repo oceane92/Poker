@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:background="@drawable/border_style"
-                android:text="Créer une partie"
+                android:text="@string/newGame"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -53,7 +53,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:background="@drawable/border_style"
-                android:text="Rejoindre une partie"
+                android:text="@string/joinParty"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -63,7 +63,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:background="@drawable/border_style"
-                android:text="Scores"
+                android:text="@string/scores"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -74,21 +74,28 @@
                 android:layout_margin="2dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_style"
-                android:text="Quitter"
+                android:text="@string/quitter"
                 android:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/textViewCopyrights"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:text="@string/copyrights"
-                android:textColor="@android:color/white"
-                android:textSize="9dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="bottom">
 
+                <TextView
+                    android:id="@+id/textViewCopyrights"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="@string/copyrights"
+                    android:textColor="@android:color/white"
+                    android:textSize="10dp" />
+            </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

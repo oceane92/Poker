@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Poker</string>
+    <string name="newGame">Créer une partie</string>
+    <string name="joinParty">Rejoindre une partie</string>
+    <string name="scores">Scores</string>
+    <string name="quitter">Quitter</string>
     <string name="copyrights">"@ Copyrights 2018 - Les Mâlins du Dev</string>
 </resources>

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.delafond.oceane.poker.R;
-import com.delafond.oceane.poker.ScoreActivity;
 
 public class GameActivity extends Fragment implements View.OnClickListener {
 
@@ -51,6 +50,9 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Création d'une vue qui veux entrer das le fragment
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
