@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.delafond.oceane.poker.R;
 
@@ -19,6 +21,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     Button buttonJoinParty;
     Button buttonScores;
     Button buttonExit;
+    EditText editTextPseudo;
 
     public HomeActivity(){ }
 
@@ -30,14 +33,19 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         this.controller = controller;
     }
 
+    public String getName(){
+        return this.editTextPseudo.getText().toString() ;
+    }
+
     /**
      * Création d'une vue qui veux entrer das le fragment
      */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_main,null );
+        View v = inflater.inflate(R.layout.home_layout,null );
 
+        editTextPseudo = (EditText) v.findViewById(R.id.editTextPseudo);
         buttonNewGame = (Button) v.findViewById(R.id.buttonNewGame);
         buttonNewGame.setOnClickListener(this);
         buttonJoinParty = (Button) v.findViewById(R.id.buttonJoinParty);
@@ -56,14 +64,16 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             this.controller.onViewSelected("GameActivity");
         }
         if (v.equals(buttonJoinParty)){
-            Intent myIntent = new Intent(v.getContext(), GameActivity.class);
-            startActivityForResult(myIntent, 0);
+
+          Log.d("buttonJoinParty", "this.controller.onViewSelected(\"GameActivity\")");
+            this.controller.onViewSelected("GameActivity");
+
         }
         if (v.equals(buttonScores)){
-            Log.i("ButtonAction", "onClick: buttonScores");
+            this.controller.onViewSelected("Score");
         }
         if (v.equals(buttonExit)){
-            Log.i("ButtonAction", "onClick: buttonExit");
+            this.controller.onViewSelected("Quitter");
         }
     }
 }

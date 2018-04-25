@@ -10,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.delafond.oceane.poker.R;
 
 public class GameActivity extends Fragment implements View.OnClickListener {
 
-    public Button buttonScore;
+
     ImageView CardPlayer1,CardPlayer2,CardPlayer3,CardPlayer4,CardPlayer5 ;
+    TextView namePlayer;
     IcontrollerMain controller;
 
     public IcontrollerMain getController() {
@@ -27,12 +29,40 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         this.controller = controller;
     }
 
+    public void setPlayerName(String name){
+        this.namePlayer.setText(name);
+    }
+
+
+    /**
+     * Création d'une vue qui veux entrer das le fragment
+     */
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.layout_game,null );
+
+        namePlayer = (TextView) v.findViewById(R.id.idtextViewNamePlayer);
+        CardPlayer1 = (ImageView) v.findViewById(R.id.imageViewCardPlayer1);
+        CardPlayer2 = (ImageView) v.findViewById(R.id.imageViewCardPlayer2);
+        CardPlayer3 = (ImageView) v.findViewById(R.id.imageViewCardPlayer3);
+        CardPlayer4 = (ImageView) v.findViewById(R.id.imageViewCardPlayer4);
+        CardPlayer5 = (ImageView) v.findViewById(R.id.imageViewCardPlayer5);
+
+        CardPlayer1.setOnClickListener(this);
+        CardPlayer2.setOnClickListener(this);
+        CardPlayer3.setOnClickListener(this);
+        CardPlayer4.setOnClickListener(this);
+        CardPlayer5.setOnClickListener(this);
+
+        return v;
+    }
+
+
+
     @Override
     public void onClick(View v) {
-        if (v.equals(buttonScore)){
-            Intent myIntent = new Intent(v.getContext(), ScoreActivity.class);
-            startActivityForResult(myIntent, 0);
-        }
+
         if (v.equals(CardPlayer1)){
             Log.i("Card", "onClick: Test image 1");
         }
@@ -46,18 +76,8 @@ public class GameActivity extends Fragment implements View.OnClickListener {
             Log.i("Card", "onClick: Test image 4");
         }
         if (v.equals(CardPlayer5)){
-            Log.i("Card", "onClick: Test image ");
+            Log.i("Card", "onClick: Test image 5");
         }
     }
 
-    /**
-     * Création d'une vue qui veux entrer das le fragment
-     */
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.layout_game,null );
-
-        return v;
-    }
 }

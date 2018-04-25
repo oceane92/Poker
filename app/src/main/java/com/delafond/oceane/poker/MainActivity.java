@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements IcontrollerMain {
         } else if (findViewById(R.id.idMainFrame) != null && scoreActivity.isVisible()) {
             getFragmentManager().beginTransaction().
                     hide(scoreActivity)
-                    .show(gameActivity)
+                    .show(homeActivity)
                     .commit();
         } else {
             super.onBackPressed();
@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements IcontrollerMain {
     public void onViewSelected(String NomFragment) {
         if(findViewById(R.id.idMainFrame)!=null){
             if(NomFragment.equals("GameActivity")) {
+
+                //Affiche le pseudo du joueur
+                gameActivity.setPlayerName(homeActivity.getName());
+
                 getFragmentManager().beginTransaction().
                         hide(homeActivity)
                         .show(gameActivity)
@@ -76,18 +80,18 @@ public class MainActivity extends AppCompatActivity implements IcontrollerMain {
             }
             if(NomFragment.equals("Score")) {
                 getFragmentManager().beginTransaction().
-                        hide(gameActivity)
+                        hide(homeActivity)
                         .show(scoreActivity)
                         .commit();
             }
+
+            if(NomFragment.equals("Quitter")) {
+                finish();
+            }
+
         }
 
-        Button buttonJoinParty = (Button) findViewById(R.id.buttonJoinParty);
-        buttonJoinParty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("ButtonAction", "onClick: buttonJoinParty");
-            }
-        });
+
+
     }
 }
