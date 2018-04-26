@@ -4,16 +4,19 @@ public class FirstBettingRound extends Round {
 
     public FirstBettingRound(Hand theHand) {
         super(theHand);
+    	System.out.println("1BR()");
     }
 
     @Override
     public void check() {
+    	System.out.println("CHECK1BR()");
         super.endRound();
     }
 
     @Override
     public void call() {
-        if (this.cptRound % 2 == 0) {
+    	System.out.println("CALL1BR()");
+        if (this.cptRound%2 == 0) {
             if (theHand.getDealer().getSomme() < this.potNonDealer - this.potDealer) {
                 this.tapis();
             } else {
@@ -29,35 +32,17 @@ public class FirstBettingRound extends Round {
             }
         }
 
-        if (cptRound > 1) {
-            super.endRound();
+        if (tapis) {
+        	theHand.endRoundTapis();
         } else {
-            cptRound++;
+            if (cptRound>1) {
+                super.endRound();
+            } else {
+                cptRound++;
+            }        	
         }
+        
     }
 
-    @Override
-    public boolean raise(int amount) {
-        if (this.cptRound%2 == 0) {
-            if (potDealer + amount < potNonDealer * 2) {
-                return false;
-            } else {
-                amount = amount - (potNonDealer - potDealer);
-                super.call();
-                this.potDealer += amount;
-                theHand.getDealer().modifSomme(-amount);
-            }
-        } else {
-            if (potNonDealer + amount < potDealer * 2) {
-                return false;
-            } else {
-                amount = amount - (potDealer - potNonDealer);
-                super.call();
-                this.potNonDealer += amount;
-                theHand.getNonDealer().modifSomme(-amount);
-            }
-        }
-        return true;
-    }
 
 }

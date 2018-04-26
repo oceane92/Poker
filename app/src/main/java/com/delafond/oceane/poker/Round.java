@@ -7,6 +7,7 @@ public abstract class Round {
     protected int potNonDealer;
     protected int cptRound;
     protected boolean checked;
+    protected boolean tapis;
 
     public Round(Hand theHand) {
         this.theHand = theHand;
@@ -14,6 +15,7 @@ public abstract class Round {
         this.potNonDealer = 0;
         this.cptRound = 1;
         this.checked = false;
+        this.tapis = false;
     }
 
     public boolean[] possibleActions() {
@@ -22,17 +24,23 @@ public abstract class Round {
         if (potDealer != potNonDealer) {
             ret[0] = false;     //check
             ret[1] = true;      //call
+            ret[3] = true;      //fold
         } else {
             ret[0] = true;
             ret[1] = false;
+            ret[3] = false;      
         }
         ret[2] = true;      //raise
-        ret[3] = true;      //all-in
+        
+        if (tapis) {
+        	ret[2] = false;
+        }
 
         return ret;
     }
 
     public void check() {
+    	System.out.println("CHECK()");
 
         if (checked) {
             this.endRound();
@@ -44,6 +52,8 @@ public abstract class Round {
 
     public void call() {
 
+    	checked = false;
+    	
         if (this.cptRound%2 == 0) {
             if (theHand.getDealer().getSomme() < this.potNonDealer - this.potDealer) {
                 this.tapis();
@@ -59,8 +69,12 @@ public abstract class Round {
                 this.potNonDealer = this.potDealer;
             }
         }
-
-        this.endRound();
+        if (tapis) {
+        	theHand.setPot(potDealer + potNonDealer);
+        	theHand.endRoundTapis();
+        } else {
+            this.endRound();        	
+        }
     }
 
     public boolean raise(int amount) {
@@ -70,7 +84,10 @@ public abstract class Round {
                 return false;
             } else {
                 amount = amount - (potNonDealer - potDealer);
-                this.call();
+                
+                theHand.getDealer().modifSomme(-(this.potNonDealer - this.potDealer));
+                this.potDealer = this.potNonDealer;
+                
                 this.potDealer += amount;
                 theHand.getDealer().modifSomme(-amount);
             }
@@ -79,15 +96,19 @@ public abstract class Round {
                 return false;
             } else {
                 amount = amount - (potDealer - potNonDealer);
-                this.call();
+                
+                theHand.getNonDealer().modifSomme(-(this.potDealer - this.potNonDealer));
+                this.potNonDealer = this.potDealer;
+                
                 this.potNonDealer += amount;
                 theHand.getNonDealer().modifSomme(-amount);
             }
         }
+        cptRound++;
         return true;
     }
 
-    public void fold(Player thePlayer) {
+    public void fold() {
 
         if (this.cptRound%2 == 0) {
             theHand.endHand(true);
@@ -100,11 +121,22 @@ public abstract class Round {
         if (this.cptRound%2 == 0) {
             potDealer += theHand.getDealer().getSomme();
             theHand.getDealer().modifSomme(-(theHand.getDealer().getSomme()));
+            if (potDealer<=potNonDealer) {
+            	theHand.setPot(potDealer + potNonDealer);
+            	theHand.endRoundTapis();
+            } else {
+            	tapis = true;
+            }
         } else {
             potNonDealer += theHand.getNonDealer().getSomme();
             theHand.getNonDealer().modifSomme(-(theHand.getNonDealer().getSomme()));
+            if (potNonDealer<=potDealer) {
+            	theHand.setPot(potDealer + potNonDealer);
+            	theHand.endRoundTapis();
+            } else {
+            	tapis = true;
+            }
         }
-        theHand.endRoundTapis();
     }
 
     public void endRound() {
@@ -127,5 +159,4 @@ public abstract class Round {
     public void setPotNonDealer(int potNonDealer) {
         this.potNonDealer += potNonDealer;
     }
-
 }

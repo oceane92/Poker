@@ -16,6 +16,10 @@ public class Player {
     public int getSomme() {
         return somme;
     }
+    
+    public String getName() {
+    	return name;
+    }
 
     public Card[] getHand() {
         return hand;
@@ -24,6 +28,10 @@ public class Player {
     public void setHand(Card c1, Card c2) {
         hand[0] = c1;
         hand[1] = c2;
+    }
+    
+    public void showHand() {
+    	System.out.print(hand[0] + " ---- " + hand[1] + "\n");
     }
 
     public boolean isDealer() {
@@ -36,6 +44,14 @@ public class Player {
 
     public void setCurrentHand(Hand currentHand) {
         this.currentHand = currentHand;
+    }
+    
+    public Card getFirstCard() {
+    	return hand[0];
+    }
+    
+    public Card getSecondCard() {
+    	return hand[1];
     }
 
     public void modifSomme(int amount) {

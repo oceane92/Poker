@@ -1,7 +1,6 @@
 package com.delafond.oceane.poker;
 
 public class Card {
-
     private final int rank;
     private final int suit;
 
@@ -87,7 +86,7 @@ public class Card {
             case DIAMONDS:
                 return "Carreaux";
             case CLUBS:
-                return "Trèfles";
+                return "Tr�fles";
             case HEARTS:
                 return "Coeurs";
             case SPADES:
@@ -101,5 +100,4 @@ public class Card {
     public String toString() {
         return rankToString() + " de " + suitToString();
     }
-
 }

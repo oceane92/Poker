@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SetGame {
-
     private ArrayList<Card> theCards;
 
     public SetGame() {
@@ -31,5 +30,4 @@ public class SetGame {
         removeCards(1);
         return theCard;
     }
-
 }
