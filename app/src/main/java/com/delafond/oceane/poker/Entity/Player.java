@@ -33,10 +33,6 @@ public class Player {
         hand[0] = c1;
         hand[1] = c2;
     }
-    
-    public void showHand() {
-    	System.out.print(hand[0] + " ---- " + hand[1] + "\n");
-    }
 
     public boolean isDealer() {
         return button;

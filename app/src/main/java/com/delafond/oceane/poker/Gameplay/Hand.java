@@ -45,10 +45,6 @@ public class Hand {
             thePlayers[i].setHand(theSetGame.getAndRemoveNextCard(), theSetGame.getAndRemoveNextCard());
             thePlayers[i].payBlind();
         }
-        
-        //////////////////////////////////////////////////////
-        Game.p1.showHand();
-        //////////////////////////////////////////////////////
     }
 
     public SetGame getTheSetGame() {
@@ -95,7 +91,6 @@ public class Hand {
     	for (Card c : cardsOnTable) {
     		System.out.print(c + " ---- ");
     	}
-    	Game.p1.showHand();
     }*/
 
     public void nextRound() {
@@ -118,21 +113,14 @@ public class Hand {
 
     public void endRoundTapis() {
     	
-    	///////////
-    	Game.p2.showHand();
-    	///////////
-    	
     	if (theRounds[1] == null) {
-            theRounds[1] = new Flop(this, true);
-            //showCards();
+            theRounds[1] = new Flop(this);
             endRoundTapis();
         } else if (theRounds[2] == null) {
-            theRounds[2] = new Turn(this, true);
-            //showCards();
+            theRounds[2] = new Turn(this);
             endRoundTapis();
         } else if (theRounds[3] == null) {
-            theRounds[3] = new River(this, true);
-            //showCards();
+            theRounds[3] = new River(this);
             endRoundTapis();
         } else {
             showdown();
