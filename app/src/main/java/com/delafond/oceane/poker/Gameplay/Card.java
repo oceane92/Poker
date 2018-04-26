@@ -1,4 +1,4 @@
-package com.delafond.oceane.poker;
+package com.delafond.oceane.poker.Gameplay;
 
 public class Card {
     private final int rank;

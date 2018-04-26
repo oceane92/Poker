@@ -1,4 +1,4 @@
-package com.delafond.oceane.poker;
+package com.delafond.oceane.poker.Gameplay;
 
 import java.util.ArrayList;
 import java.util.Collections;

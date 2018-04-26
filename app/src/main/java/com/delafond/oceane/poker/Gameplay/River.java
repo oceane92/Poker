@@ -1,4 +1,4 @@
-package com.delafond.oceane.poker;
+package com.delafond.oceane.poker.Gameplay;
 
 public class River extends Round {
 

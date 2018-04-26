@@ -1,4 +1,8 @@
-package com.delafond.oceane.poker;
+package com.delafond.oceane.poker.Entity;
+
+import com.delafond.oceane.poker.Gameplay.Card;
+import com.delafond.oceane.poker.Gameplay.Game;
+import com.delafond.oceane.poker.Gameplay.Hand;
 
 public class Player {
     private String name;

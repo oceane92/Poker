@@ -1,4 +1,6 @@
-package com.delafond.oceane.poker;
+package com.delafond.oceane.poker.Gameplay;
+
+import com.delafond.oceane.poker.Entity.Player;
 
 import java.util.Timer;
 import java.util.TimerTask;
