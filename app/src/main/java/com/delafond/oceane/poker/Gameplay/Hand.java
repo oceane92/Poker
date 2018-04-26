@@ -1,6 +1,6 @@
 package com.delafond.oceane.poker.Gameplay;
 
-import com.delafond.oceane.poker.Entity.Player;
+import com.delafond.oceane.poker.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;

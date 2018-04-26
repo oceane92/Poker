@@ -1,4 +1,4 @@
-package com.delafond.oceane.poker.Entity;
+package com.delafond.oceane.poker.entity;
 
 import com.delafond.oceane.poker.Gameplay.Card;
 import com.delafond.oceane.poker.Gameplay.Game;
