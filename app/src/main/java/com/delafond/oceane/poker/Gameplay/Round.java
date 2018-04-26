@@ -160,4 +160,8 @@ public abstract class Round {
     public void setPotNonDealer(int potNonDealer) {
         this.potNonDealer += potNonDealer;
     }
+
+    public int getCptRound() {
+        return cptRound;
+    }
 }
