@@ -89,27 +89,26 @@ public class Hand {
         this.currentRound = currentRound;
     }
     
-    public void showCards() {
+    /*public void showCards() {
     	for (Card c : cardsOnTable) {
     		System.out.print(c + " ---- ");
     	}
     	Game.p1.showHand();
-    	
-    }
+    }*/
 
     public void nextRound() {
         if (theRounds[1] == null) {
             theRounds[1] = new Flop(this);
             currentRound = theRounds[1];
-            showCards();
+            //showCards();
         } else if (theRounds[2] == null) {
             theRounds[2] = new Turn(this);
             currentRound = theRounds[2];
-            showCards();
+            //showCards();
         } else if (theRounds[3] == null) {
             theRounds[3] = new River(this);
             currentRound = theRounds[3];
-            showCards();
+            //showCards();
         } else {
             showdown();
         }
@@ -123,15 +122,15 @@ public class Hand {
     	
     	if (theRounds[1] == null) {
             theRounds[1] = new Flop(this, true);
-            showCards();
+            //showCards();
             endRoundTapis();
         } else if (theRounds[2] == null) {
             theRounds[2] = new Turn(this, true);
-            showCards();
+            //showCards();
             endRoundTapis();
         } else if (theRounds[3] == null) {
             theRounds[3] = new River(this, true);
-            showCards();
+            //showCards();
             endRoundTapis();
         } else {
             showdown();
