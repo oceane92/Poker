@@ -45,23 +45,28 @@ public class Player {
     public void setCurrentHand(Hand currentHand) {
         this.currentHand = currentHand;
     }
-    
+
+    //Retourne la première carte
     public Card getFirstCard() {
     	return hand[0];
     }
-    
+
+    //Retourne la seconde carte
     public Card getSecondCard() {
     	return hand[1];
     }
 
+    //Ajoute ou retire la somme d'argent du joueur
     public void modifSomme(int amount) {
         this.somme += amount;
     }
 
+    //Met à zéro la sommedu joueur lorsqu'il fait tapis
     public void tapis() {
         this.somme = 0;
     }
 
+    //Lancée à chaque tour, paye la blind
     public void payBlind() {
         if (button) {
             currentHand.getCurrentRound().setPotDealer(Game.bigBlind);

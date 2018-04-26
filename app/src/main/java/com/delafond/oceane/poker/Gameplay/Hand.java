@@ -93,6 +93,7 @@ public class Hand {
     	}
     }*/
 
+    //Lancée lorsque la manche précédente est finie et passe à la manche suivante
     public void nextRound() {
         if (theRounds[1] == null) {
             theRounds[1] = new Flop(this);
@@ -111,6 +112,7 @@ public class Hand {
         }
     }
 
+    //Lancée si un des joueurs fait tapis
     public void endRoundTapis() {
     	
     	if (theRounds[1] == null) {
@@ -127,6 +129,7 @@ public class Hand {
         }
     }
 
+    //Lancée si aucun des joueurs ne s'est couché, détermine quel joueur a la meilleure combinaison (retourne NULL si égalité)
     public Player showdown() {
     	ArrayList<Card> setP1 = new ArrayList<Card>();
     	ArrayList<Card> setP2 = new ArrayList<Card>();
@@ -222,7 +225,8 @@ public class Hand {
 			return null;
 		}
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une quinte flush royale, FAUX sinon
     public boolean containsRoyalFlush(ArrayList<Card> list) {
 
         Collections.sort(list, new Comparator<Card>() {
@@ -246,7 +250,8 @@ public class Hand {
 
         return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une quinte flush, FAUX sinon
     public boolean containsStraightFlush(ArrayList<Card> list) {
 
         Collections.sort(list, new Comparator<Card>() {
@@ -309,7 +314,8 @@ public class Hand {
 
         return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient un carré, FAUX sinon
     public boolean containsFourofAKind(ArrayList<Card> list) {
 
         ArrayList<Integer> listRanks = new ArrayList<Integer>();
@@ -332,7 +338,8 @@ public class Hand {
 
         return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient un full, FAUX sinon
     public boolean containsFull(ArrayList<Card> list) {
     	ArrayList<Card> cardToRemove = new ArrayList<Card>();
     	if (containsThreeofAKind(list)) {
@@ -367,7 +374,8 @@ public class Hand {
 
     	return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une couleur, FAUX sinon
     public boolean containsFlush(ArrayList<Card> list) {
     	int cptDiamond = 0;
     	int cptHeart = 0;
@@ -396,7 +404,8 @@ public class Hand {
     	
     	return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une suite, FAUX sinon
     public boolean containsStraight(ArrayList<Card> list) {
     	Collections.sort(list, new Comparator<Card>() {
 			@Override
@@ -446,7 +455,8 @@ public class Hand {
 
     	return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient un brelan, FAUX sinon
     public boolean containsThreeofAKind(ArrayList<Card> list) {
     	ArrayList<Integer> listRanks = new ArrayList<Integer>();
     	for (Card c : list) {
@@ -468,7 +478,8 @@ public class Hand {
     	
     	return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une double paire, FAUX sinon
     public boolean containsDoublePair(ArrayList<Card> list) {
     	ArrayList<Integer> listRanks = new ArrayList<Integer>();
     	
@@ -483,7 +494,8 @@ public class Hand {
     	
     	return false;
     }
-    
+
+    //Retourne VRAI si la liste passée en paramètre contient une paire, FAUX sinon
     public boolean containsPair(ArrayList<Card> list) {    	
     	
     	ArrayList<Integer> listRanks = new ArrayList<Integer>();
@@ -499,7 +511,8 @@ public class Hand {
     	}
     	return false;
     }
-    
+
+    //Retourne la carte la plus haute de la liste passée en paramètre
     public Card highCard(ArrayList<Card> list) {
     	Card theHighCard = list.get(0);
     	
@@ -512,6 +525,7 @@ public class Hand {
     	return theHighCard;
     }
 
+    //Modifie la somme des joueurs à la fin d'une main lorsqu'un joueur s'est couché
     public void endHand(boolean isDealerTheWinner) {
         if (isDealerTheWinner) {
             dealer.modifSomme(pot);
@@ -522,7 +536,8 @@ public class Hand {
         nonDealer.setButton(true);
         Game.newHand();
     }
-    
+
+    //Modifie la somme des joueurs à la fin d'une main après le showdown
     public void endHand(Player theWinner) {
     	if (theWinner != null) {
     		theWinner.modifSomme(pot);

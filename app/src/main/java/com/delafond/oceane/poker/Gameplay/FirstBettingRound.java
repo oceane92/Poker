@@ -2,6 +2,7 @@ package com.delafond.oceane.poker.Gameplay;
 
 public class FirstBettingRound extends Round {
 
+    //Pré-Flop
     public FirstBettingRound(Hand theHand) {
         super(theHand);
     }

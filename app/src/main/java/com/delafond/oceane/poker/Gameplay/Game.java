@@ -16,6 +16,7 @@ public class Game {
     public static int rankBlind;
     public static Player theWinner;
 
+    //Initialisation du jeu
     public static void initialize(Player p1, Player p2) {
         theSetGame = new SetGame();
         Game.p1 = p1;
@@ -28,6 +29,7 @@ public class Game {
         blindTimer();
     }
 
+    //Crée une nouvelle main à la fin de la précédente
     public static void newHand() {
         theSetGame.shuffle();
         if (p1.isDealer()) {
@@ -41,6 +43,7 @@ public class Game {
         }
     }
 
+    //Timer lancé à chaque fin de cycle de blind
     public static void blindTimer() {
 
         TimerTask task = new TimerTask()
@@ -62,12 +65,14 @@ public class Game {
 
                     }
                     //////
-                    System.out.println("Nouvelle grosse blinde : " + bigBlind);
+                    System.out.println("Nouvelle grosse blind : " + bigBlind);
                     //////
                 }
-                else {
-                    //Mettre à jour le blind timer
-                }
+
+                //AMELIORATION
+                /*else {
+                    //Mettre à jour le blind timer sur la vue
+                }*/
 
             }
         };
@@ -76,7 +81,8 @@ public class Game {
         timer.schedule(task, 0, 1000);
 
     }
-    
+
+    //Teste si la partie est terminée
     public static boolean isOver() {
     	//ICI SCORES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     	if (p1.getSomme() == 0 || p2.getSomme() == 0) {

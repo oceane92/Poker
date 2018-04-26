@@ -18,6 +18,7 @@ public abstract class Round {
         this.tapis = false;
     }
 
+    //Retourne un tableau de booléens en fonction des actions possibles par le joueur actuel
     public boolean[] possibleActions() {
         boolean[] ret = new boolean[4];
 
@@ -40,7 +41,6 @@ public abstract class Round {
     }
 
     public void check() {
-    	System.out.println("CHECK()");
 
         if (checked) {
             this.endRound();
@@ -139,6 +139,7 @@ public abstract class Round {
         }
     }
 
+    //Enregistre la somme misée par les deux joueurs dans le pot de la main
     public void endRound() {
         theHand.setPot(potDealer + potNonDealer);
         theHand.nextRound();
