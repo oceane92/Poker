@@ -18,6 +18,7 @@
             android:textColor="#FFFF"
             android:text="Player Two"/>
 
+
         <ImageView
             android:layout_marginLeft="25dp"
             android:id="@+id/DealerPlayer2"
@@ -25,7 +26,26 @@
             android:layout_height="30dp"
             android:src="@drawable/token_dealer"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom|right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idCurentePlayer"
+                android:layout_gravity="right"
+                android:textColor="#FFFF"
+                android:text="Current player"/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
+
 
 
     <LinearLayout
@@ -115,18 +135,160 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="120dp"
+            android:src="@drawable/token"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF"
+            android:text="Pot player 1 :"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tokenPot1"
+            android:textColor="#FFFF"
+            android:text="0€"/>
+
         <ImageView
             android:id="@+id/tokenRiver"
             android:layout_width="60dp"
             android:layout_height="120dp"
             android:src="@drawable/token"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ValueTokenRiver"
+            android:textColor="#FFFF"
+            android:text="Pot player 2 :"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tokenPot2"
             android:textColor="#FFFF"
             android:text="0€"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/idCh"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="ch" />
+        <Button
+            android:id="@+id/idCa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ca" />
+        <Button
+            android:id="@+id/idRa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ra" />
+        <Button
+            android:id="@+id/idTa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ta" />
+        <Button
+            android:id="@+id/idFo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="fo" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom|right">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|right">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/tokenPlayer1"
+                    android:layout_width="60dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/token"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ValueTokenPlayer1"
+                    android:textColor="#FFFF"
+                    android:text="0€"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginLeft="40dp"
+                android:id="@+id/imageViewCardPlayer1"
+                android:layout_width="60dp"
+                android:layout_height="120dp"
+                android:src="@drawable/c0_0"/>
+
+            <ImageView
+                android:layout_marginRight="40dp"
+                android:id="@+id/imageViewCardPlayer2"
+                android:layout_width="60dp"
+                android:layout_height="120dp"
+                android:src="@drawable/c8_2" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/p1"
+                android:textColor="#FFFF"
+                android:text="Player one"/>
+
+
+            <ImageView
+                android:layout_marginLeft="25dp"
+                android:id="@+id/DealerPlayer1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/token_dealer"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
 </LinearLayout>
+

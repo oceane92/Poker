@@ -1,28 +1,37 @@
 package com.delafond.oceane.poker.fragment;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.delafond.oceane.poker.Card;
+import com.delafond.oceane.poker.entity.*;
+import com.delafond.oceane.poker.Gameplay.*;
 import com.delafond.oceane.poker.R;
 
 public class GameActivity extends Fragment implements View.OnClickListener {
 
 
-    ImageView CardPlayer1,CardPlayer2,CardPlayer3,CardPlayer4,CardPlayer5 ;
-    TextView namePlayer1,namePlayer2;
+    ImageView CardPlayer1,CardPlayer2,cardRiver1,cardRiver2,cardRiver3,cardRiver4,cardRiver5 ;
+    TextView namePlayer1,namePlayer2,ValueTokenPlayer1,ValueTokenPlayer2,ValuePot1,ValuePot2,curentplayer;
     IcontrollerMain controller;
     Card cardPalyer1;
     Card cardPalyer2;
+    Player player1,player2;
+    public static int relance  ;
+    LayoutInflater inflater;
+
+    Button ch,ca,fo,ta,ra;
 
     public IcontrollerMain getController() {
         return controller;
@@ -47,23 +56,49 @@ public class GameActivity extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_game,null );
+        this.inflater = inflater;
 
         namePlayer1 = (TextView) v.findViewById(R.id.p1);
         CardPlayer1 = (ImageView) v.findViewById(R.id.imageViewCardPlayer1);
         CardPlayer2 = (ImageView) v.findViewById(R.id.imageViewCardPlayer2);
 
+        //Instanciation des buttons
+
+        ch = (Button) v.findViewById(R.id.idCh);
+        ch.setOnClickListener(this);
+        ca = (Button) v.findViewById(R.id.idCa);
+        ca.setOnClickListener(this);
+        fo = (Button) v.findViewById(R.id.idFo);
+        fo.setOnClickListener(this);
+        ta = (Button) v.findViewById(R.id.idTa);
+        ta.setOnClickListener(this);
+        ra = (Button) v.findViewById(R.id.idRa);
+        ra.setOnClickListener(this);
+
+        this.player1 = new Player("Player 1 ");
+        this.player2 = new Player("Player 2 ");
+        Game.initialize(this.player1,this.player2);
         this.cardPalyer1 = new Card(8,1) ;
         this.cardPalyer2  = new Card(9,1) ;
-
         CardPlayer1.setOnClickListener(this);
         CardPlayer2.setOnClickListener(this);
 
+        ValueTokenPlayer1 = (TextView) v.findViewById(R.id.ValueTokenPlayer1);
+        ValueTokenPlayer2 = (TextView) v.findViewById(R.id.ValueTokenPlayer2);
 
-        this.setCardPlayer1(this.cardPalyer1);
-        this.setCardPlayer2(this.cardPalyer2);
-        //CardPlayer3.setOnClickListener(this);
-        //CardPlayer4.setOnClickListener(this);
-        //CardPlayer5.setOnClickListener(this);
+        ValuePot1 = (TextView) v.findViewById(R.id.tokenPot1);
+        ValuePot2 = (TextView) v.findViewById(R.id.tokenPot2);
+
+
+        curentplayer = (TextView) v.findViewById(R.id.idCurentePlayer);
+        //mettre images cartes
+        this.setCardPlayer1(Game.p1.getFirstCard());
+        this.setCardPlayer2(Game.p1.getSecondCard());
+        //donner les valeurs des tokens
+        this.SetValuesToken();
+
+        cardRiver1 = (ImageView) v.findViewById(R.id.cardRiver1)          ;
+
 
         return v;
     }
@@ -85,21 +120,128 @@ public class GameActivity extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if (v.equals(CardPlayer1)){
-            Log.i("Card", "onClick: Test image 1");
+        if (v.equals(ch)){
+            this.NextTurn("ch");
         }
-        if (v.equals(CardPlayer2)){
-            Log.i("Card", "onClick: Test image 2");
-        }/*
-        if (v.equals(CardPlayer3)){
-            Log.i("Card", "onClick: Test image 3");
+        if (v.equals(ca)){
+            this.NextTurn("ca");
         }
-        if (v.equals(CardPlayer4)){
-            Log.i("Card", "onClick: Test image 4");
+        if (v.equals(ra)){
+            this.popUpRaise();
+            this.NextTurn("ra");
         }
-        if (v.equals(CardPlayer5)){
-            Log.i("Card", "onClick: Test image 5");
-        }*/
+        if (v.equals(ta)){
+            this.NextTurn("ta");
+        }
+        if (v.equals(fo)){
+            this.NextTurn("fo");
+        }
+
+
+    }
+
+    public void popUpRaise(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder( getActivity() );
+        View view1 = this.inflater.inflate( R.layout.pop_up_raise,null );
+        final EditText valueRaise = (EditText) view1.findViewById(R.id.valueRaise) ;
+        AlertDialog dialog = null;
+
+        mBuilder.setView( view1 );
+
+        mBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GameActivity.relance = Integer.parseInt(valueRaise.getText().toString());
+                        dialog.cancel();
+                    }
+                });
+
+        dialog = mBuilder.create() ;
+        dialog.show();
+    }
+
+
+
+    public void SetValuesToken(){
+        ValueTokenPlayer1.setText(Game.p1.getSomme()+"");
+        ValueTokenPlayer2.setText(Game.p2.getSomme()+"");
+        if (Game.p1.isDealer()){
+            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
+            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
+
+        }else {
+            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
+            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
+        }
+        this.CurrentPlayer();
+
+    }
+
+
+    public void revealCards(){
+        for (int e = 1; e<=5;e++){
+
+            if (e<=Game.currentHand.getCardsOnTable().size()){
+
+                Card c = Game.currentHand.getCardsOnTable().get(e-1);
+                String imageName = "c"+c.getRank()+"_"+c.getSuit();
+                ImageView cardReveal = (ImageView) this.getView().findViewById( getActivity().getResources().getIdentifier("cardRiver"+e,"id",getActivity().getPackageName()) );
+                cardReveal.setImageResource(getActivity().getResources().getIdentifier( imageName, "drawable", getActivity().getPackageName() ));
+            }else {
+                ImageView cardReveal = (ImageView) this.getView().findViewById( getActivity().getResources().getIdentifier("cardRiver"+e,"id",getActivity().getPackageName()) );
+                cardReveal.setImageResource(getActivity().getResources().getIdentifier( "card_face_down", "drawable", getActivity().getPackageName() ));
+            }
+
+        }
+    }
+
+    public void CurrentPlayer(){
+        if(Game.currentHand.getCurrentRound().getCptRound()%2==0){
+
+            if (Game.p1.isDealer()){
+                curentplayer.setText("current : Player 1 ");
+            }else{
+                curentplayer.setText("currente : Player 2 ");
+            }
+        }else {
+            if (Game.p1.isDealer()){
+                curentplayer.setText("current : Player 2 ");
+            }else{
+                curentplayer.setText("currente : Player 1 ");
+            }
+        }
+
+    }
+
+    public void NextTurn(String com){
+        switch (com) {
+            case "ch":
+                Game.currentHand.getCurrentRound().check();
+                this.SetValuesToken();
+                this.revealCards();
+                break;
+            case "ca":
+                Game.currentHand.getCurrentRound().call();
+                this.SetValuesToken();
+                this.revealCards();
+                break;
+            case "ra":
+                Log.e("relance:",relance+"");
+                Game.currentHand.getCurrentRound().raise(relance);
+                this.SetValuesToken();
+                this.revealCards();
+                break;
+            case "ta":
+                Game.currentHand.getCurrentRound().tapis();
+                this.SetValuesToken();
+                this.revealCards();
+                break;
+            case "fo":
+                Game.currentHand.getCurrentRound().fold();
+                this.SetValuesToken();
+                this.revealCards();
+        }
     }
 
 }
