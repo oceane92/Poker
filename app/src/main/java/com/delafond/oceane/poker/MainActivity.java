@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity implements IcontrollerMain {
         if(findViewById(R.id.idMainFrame)!=null){
             if(NomFragment.equals("GameActivity")) {
 
-                //Affiche le pseudo du joueur
-                gameActivity.setPlayerName(homeActivity.getName());
-
                 getFragmentManager().beginTransaction().
                         hide(homeActivity)
                         .show(gameActivity)
