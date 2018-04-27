@@ -12,14 +12,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.delafond.oceane.poker.Card;
 import com.delafond.oceane.poker.R;
 
 public class GameActivity extends Fragment implements View.OnClickListener {
 
 
     ImageView CardPlayer1,CardPlayer2,CardPlayer3,CardPlayer4,CardPlayer5 ;
-    TextView namePlayer;
+    TextView namePlayer1,namePlayer2;
     IcontrollerMain controller;
+    Card cardPalyer1;
+    Card cardPalyer2;
 
     public IcontrollerMain getController() {
         return controller;
@@ -29,8 +32,11 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         this.controller = controller;
     }
 
-    public void setPlayerName(String name){
-        this.namePlayer.setText(name);
+    public void setPlayerName1(String name){
+        this.namePlayer1.setText(name);
+    }
+    public void setPlayerName2(String name){
+        this.namePlayer2.setText(name);
     }
 
 
@@ -42,20 +48,36 @@ public class GameActivity extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_game,null );
 
-        namePlayer = (TextView) v.findViewById(R.id.idtextViewNamePlayer);
+        namePlayer1 = (TextView) v.findViewById(R.id.p1);
         CardPlayer1 = (ImageView) v.findViewById(R.id.imageViewCardPlayer1);
         CardPlayer2 = (ImageView) v.findViewById(R.id.imageViewCardPlayer2);
-        CardPlayer3 = (ImageView) v.findViewById(R.id.imageViewCardPlayer3);
-        CardPlayer4 = (ImageView) v.findViewById(R.id.imageViewCardPlayer4);
-        CardPlayer5 = (ImageView) v.findViewById(R.id.imageViewCardPlayer5);
+
+        this.cardPalyer1 = new Card(8,1) ;
+        this.cardPalyer2  = new Card(9,1) ;
 
         CardPlayer1.setOnClickListener(this);
         CardPlayer2.setOnClickListener(this);
-        CardPlayer3.setOnClickListener(this);
-        CardPlayer4.setOnClickListener(this);
-        CardPlayer5.setOnClickListener(this);
+
+
+        this.setCardPlayer1(this.cardPalyer1);
+        this.setCardPlayer2(this.cardPalyer2);
+        //CardPlayer3.setOnClickListener(this);
+        //CardPlayer4.setOnClickListener(this);
+        //CardPlayer5.setOnClickListener(this);
 
         return v;
+    }
+
+    public void setCardPlayer1(Card card){
+        this.cardPalyer1 = card ;
+        String imageName = "c"+this.cardPalyer1.getRank()+"_"+this.cardPalyer1.getSuit();
+        CardPlayer1.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
+    }
+
+    public void setCardPlayer2(Card card){
+        this.cardPalyer2 = card ;
+        String imageName = "c"+this.cardPalyer2.getRank()+"_"+this.cardPalyer2.getSuit();
+        CardPlayer2.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
     }
 
 
@@ -68,7 +90,7 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         }
         if (v.equals(CardPlayer2)){
             Log.i("Card", "onClick: Test image 2");
-        }
+        }/*
         if (v.equals(CardPlayer3)){
             Log.i("Card", "onClick: Test image 3");
         }
@@ -77,7 +99,7 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         }
         if (v.equals(CardPlayer5)){
             Log.i("Card", "onClick: Test image 5");
-        }
+        }*/
     }
 
 }
