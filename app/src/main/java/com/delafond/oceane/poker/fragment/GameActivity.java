@@ -15,14 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.delafond.oceane.poker.entity.*;
-import com.delafond.oceane.poker.Gameplay.*;
+import com.delafond.oceane.poker.entity.Player;
+import com.delafond.oceane.poker.Gameplay.Card;
+import com.delafond.oceane.poker.Gameplay.Game;
 import com.delafond.oceane.poker.R;
 
 public class GameActivity extends Fragment implements View.OnClickListener {
 
 
-    ImageView CardPlayer1,CardPlayer2,cardRiver1,cardRiver2,cardRiver3,cardRiver4,cardRiver5 ;
+    ImageView CardPlayer1,CardPlayer2,cardRiver1,cardRiver2,cardRiver3,cardRiver4,cardRiver5,imageViewCardPlayerTwo1,imageViewCardPlayerTwo2 ;
     TextView namePlayer1,namePlayer2,ValueTokenPlayer1,ValueTokenPlayer2,ValuePot1,ValuePot2,curentplayer;
     IcontrollerMain controller;
     Card cardPalyer1;
@@ -61,6 +62,10 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         namePlayer1 = (TextView) v.findViewById(R.id.p1);
         CardPlayer1 = (ImageView) v.findViewById(R.id.imageViewCardPlayer1);
         CardPlayer2 = (ImageView) v.findViewById(R.id.imageViewCardPlayer2);
+        imageViewCardPlayerTwo1 = (ImageView)v.findViewById(R.id.imageViewCardPlayerTwo1);
+        imageViewCardPlayerTwo2 = (ImageView)v.findViewById(R.id.imageViewCardPlayerTwo2);
+
+
 
         //Instanciation des buttons
 
@@ -92,8 +97,9 @@ public class GameActivity extends Fragment implements View.OnClickListener {
 
         curentplayer = (TextView) v.findViewById(R.id.idCurentePlayer);
         //mettre images cartes
-        this.setCardPlayer1(Game.p1.getFirstCard());
-        this.setCardPlayer2(Game.p1.getSecondCard());
+        this.setCardPlayer1();
+        this.setCardPlayer2();
+
         //donner les valeurs des tokens
         this.SetValuesToken();
 
@@ -103,16 +109,27 @@ public class GameActivity extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    public void setCardPlayer1(Card card){
-        this.cardPalyer1 = card ;
-        String imageName = "c"+this.cardPalyer1.getRank()+"_"+this.cardPalyer1.getSuit();
+    public void setCardPlayer1(){
+        Card card  =Game.p1.getFirstCard();
+        String imageName = "c"+card.getRank()+"_"+card.getSuit();
         CardPlayer1.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
     }
 
-    public void setCardPlayer2(Card card){
-        this.cardPalyer2 = card ;
-        String imageName = "c"+this.cardPalyer2.getRank()+"_"+this.cardPalyer2.getSuit();
+    public void setCardPlayer2(){
+        Card card  =Game.p1.getSecondCard();
+        String imageName = "c"+card.getRank()+"_"+card.getSuit();
         CardPlayer2.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
+    }
+    public void setCardPlayer3(){
+        Card card  =Game.p2.getFirstCard();
+        String imageName = "c"+this.cardPalyer1.getRank()+"_"+this.cardPalyer1.getSuit();
+        imageViewCardPlayerTwo1.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
+    }
+
+    public void setCardPlayer4(){
+        Card card  =Game.p2.getSecondCard();
+        String imageName = "c"+card.getRank()+"_"+card.getSuit();
+        imageViewCardPlayerTwo2.setImageResource(getActivity().getResources().getIdentifier(imageName, "drawable", getActivity().getPackageName() ));
     }
 
 
@@ -197,22 +214,81 @@ public class GameActivity extends Fragment implements View.OnClickListener {
     }
 
     public void CurrentPlayer(){
+
+        boolean[] possibleActions = Game.currentHand.getCurrentRound().possibleActions();
+        ch.setEnabled(possibleActions[0]);
+        ca.setEnabled(possibleActions[1]);
+        ra.setEnabled(possibleActions[2]);
+        fo.setEnabled(possibleActions[3]);
+
         if(Game.currentHand.getCurrentRound().getCptRound()%2==0){
 
             if (Game.p1.isDealer()){
                 curentplayer.setText("current : Player 1 ");
+                this.setCardPlayer1();
+                this.setCardPlayer2();
+                imageViewCardPlayerTwo1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                imageViewCardPlayerTwo2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+
             }else{
-                curentplayer.setText("currente : Player 2 ");
+                curentplayer.setText("current : Player 2 ");
+                this.setCardPlayer3();
+                this.setCardPlayer4();
+                CardPlayer1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                CardPlayer2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
             }
         }else {
             if (Game.p1.isDealer()){
                 curentplayer.setText("current : Player 2 ");
+                this.setCardPlayer3();
+                this.setCardPlayer4();
+                CardPlayer1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                CardPlayer2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
             }else{
-                curentplayer.setText("currente : Player 1 ");
+                curentplayer.setText("current : Player 1 ");
+                this.setCardPlayer1();
+                this.setCardPlayer2();
+                imageViewCardPlayerTwo1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                imageViewCardPlayerTwo2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
             }
         }
 
     }
+
+    public void switchCardsVisible(){
+        /*this.setCardPlayer3();
+        this.setCardPlayer4();*/
+
+        if(Game.currentHand.getCurrentRound().getCptRound()%2==0){
+
+            if (Game.p1.isDealer()){
+                this.setCardPlayer1();
+                this.setCardPlayer2();
+                imageViewCardPlayerTwo1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                imageViewCardPlayerTwo2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+
+            }else{
+                this.setCardPlayer3();
+                this.setCardPlayer4();
+                CardPlayer1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                CardPlayer2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+            }
+        }else {
+            if (Game.p1.isDealer()){
+                this.setCardPlayer1();
+                this.setCardPlayer2();
+                imageViewCardPlayerTwo1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                imageViewCardPlayerTwo2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+
+            }else{
+                this.setCardPlayer3();
+                this.setCardPlayer4();
+                CardPlayer1.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+                CardPlayer2.setImageResource(getActivity().getResources().getIdentifier("card_face_down", "drawable", getActivity().getPackageName() ));
+            }
+        }
+    }
+
 
     public void NextTurn(String com){
         switch (com) {
@@ -220,27 +296,32 @@ public class GameActivity extends Fragment implements View.OnClickListener {
                 Game.currentHand.getCurrentRound().check();
                 this.SetValuesToken();
                 this.revealCards();
+                // this.switchCardsVisible();
                 break;
             case "ca":
                 Game.currentHand.getCurrentRound().call();
                 this.SetValuesToken();
                 this.revealCards();
+                // this.switchCardsVisible();
                 break;
             case "ra":
                 Log.e("relance:",relance+"");
                 Game.currentHand.getCurrentRound().raise(relance);
                 this.SetValuesToken();
                 this.revealCards();
+                //this.switchCardsVisible();
                 break;
             case "ta":
                 Game.currentHand.getCurrentRound().tapis();
                 this.SetValuesToken();
                 this.revealCards();
+                //this.switchCardsVisible();
                 break;
             case "fo":
                 Game.currentHand.getCurrentRound().fold();
                 this.SetValuesToken();
                 this.revealCards();
+                //this.switchCardsVisible();
         }
     }
 
