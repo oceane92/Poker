@@ -181,31 +181,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         >
         <Button
+            android:layout_marginLeft="10dp"
             android:id="@+id/idCh"
-            android:layout_width="50dp"
+            android:layout_marginRight="8dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
             android:text="ch" />
         <Button
             android:id="@+id/idCa"
-            android:layout_width="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
             android:text="ca" />
         <Button
             android:id="@+id/idRa"
-            android:layout_width="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
             android:text="ra" />
         <Button
             android:id="@+id/idTa"
-            android:layout_width="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
             android:text="ta" />
         <Button
             android:id="@+id/idFo"
-            android:layout_width="match_parent"
+            android:layout_marginRight="8dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
             android:text="fo" />
     </LinearLayout>
 
@@ -291,4 +303,3 @@
 
 
 </LinearLayout>
-

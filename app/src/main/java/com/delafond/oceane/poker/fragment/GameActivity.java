@@ -144,7 +144,9 @@ public class GameActivity extends Fragment implements View.OnClickListener {
             this.NextTurn("ca");
         }
         if (v.equals(ra)){
-            this.popUpRaise();
+            while(!this.popUpRaise()) {
+
+            }
             this.NextTurn("ra");
         }
         if (v.equals(ta)){
@@ -157,7 +159,7 @@ public class GameActivity extends Fragment implements View.OnClickListener {
 
     }
 
-    public void popUpRaise(){
+    public boolean popUpRaise(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder( getActivity() );
         View view1 = this.inflater.inflate( R.layout.pop_up_raise,null );
         final EditText valueRaise = (EditText) view1.findViewById(R.id.valueRaise) ;
@@ -176,20 +178,22 @@ public class GameActivity extends Fragment implements View.OnClickListener {
 
         dialog = mBuilder.create() ;
         dialog.show();
+        return true;
     }
 
 
 
     public void SetValuesToken(){
+
         ValueTokenPlayer1.setText(Game.p1.getSomme()+"");
         ValueTokenPlayer2.setText(Game.p2.getSomme()+"");
         if (Game.p1.isDealer()){
-            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
-            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
+            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
+            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
 
         }else {
-            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
-            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
+            ValuePot2.setText(Game.currentHand.getCurrentRound().getPotDealer()+"");
+            ValuePot1.setText(Game.currentHand.getCurrentRound().getPotNonDealer()+"");
         }
         this.CurrentPlayer();
 
